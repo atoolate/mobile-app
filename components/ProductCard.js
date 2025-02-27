@@ -9,7 +9,7 @@ const ProductCard = () => {
                 source={require('../assets/hermanmiller.jpg')}
             />
             <Text style={styles.productTitle}>Herman Miller Chair</Text>
-            <Text>$1,200.00</Text>
+            <Text style={styles.productPrice}>$1,200.00</Text>
 
         </View>
     );
@@ -18,10 +18,7 @@ const ProductCard = () => {
 // styles
 const styles = StyleSheet.create({
     card: {
-        width: '100vw',
-        padding: 10,
-        marginLeft: 20,
-        marginRight: 20,
+        width: '100%',
         borderRadius: 10,
         backgroundColor: '#fff',
         marginBottom: 20,
@@ -36,15 +33,22 @@ const styles = StyleSheet.create({
     image: {
         // fit the card and make it contain
         width: '100%',
-        height: 200,        
-        borderRadius: 10,
+        height: 200,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,        
         
     },
     productTitle: {
         fontSize: 20,
         fontWeight: 'bold',
         marginTop: 10,
-    }
+        paddingLeft: 10,
+    },
+    productPrice: {
+        fontSize: 16,
+        paddingLeft: 10,
+        paddingBottom: 10,
+    },
 });
 
 export default ProductCard;

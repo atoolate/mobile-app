@@ -1,70 +1,76 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import ProductCard from '../components/ProductCard';
 import HomeBanner from '../components/HomeBanner';
-import { StackActions } from '@react-navigation/native';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
 
-    const handleProductPress = () => {
-        console.log('Product Pressed');
-        navigation.navigate('Details');
-    };
-    
+  const handleProductPress = () => {
+    console.log('Product Pressed');
+    navigation.navigate('Details');
+  };
+
   return (
-    <View style={styles.container}>
-      <HomeBanner style={styles.homebanner} />
-
-      <Text style={styles.subtitle}>Featured Products</Text>
-
-      <ScrollView style={styles.productGrid} vertical={true}>
-        <TouchableOpacity onPress={handleProductPress}>
+    <ScrollView contentContainerStyle={styles.scrollViewContent}>
+      <View style={styles.container}>
+        <HomeBanner style={styles.homebanner} />
+        <Text style={styles.subtitle}>Featured Products</Text>
+        <View style={styles.productGrid}>
+          <TouchableOpacity style={styles.productCard} onPress={handleProductPress}>
             <ProductCard />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleProductPress}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.productCard} onPress={handleProductPress}>
             <ProductCard />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleProductPress}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.productCard} onPress={handleProductPress}>
             <ProductCard />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleProductPress}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.productCard} onPress={handleProductPress}>
             <ProductCard />
-        </TouchableOpacity>
-      </ScrollView>     
-    </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: '100vw',
+  scrollViewContent: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    paddingTop: 10,
+  container: {
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  homebanner: {
+    width: '100%',
+    height: 200,
   },
   subtitle: {
     fontSize: 20,
     fontWeight: 'bold',
     marginTop: 20,
     marginBottom: 10,
+    textAlign: 'center',
   },
   productGrid: {
-    flex: 1,
     width: '100%',
-    alignContent: 'center',
+    // i need 2 columns on each row
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginBottom: 20,
   },
-  homebanner: {
-    width: 'max-content',
-    height: 200,
-    borderRadius: 10,
-  },
+  productCard: {
+    width: '45%',
+  }
 });
 
 export default HomeScreen;
