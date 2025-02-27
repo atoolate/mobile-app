@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import ProductCard from '../components/ProductCard';
+import HomeBanner from '../components/HomeBanner';
 import { StackActions } from '@react-navigation/native';
 
 const HomeScreen = ({navigation}) => {
@@ -12,11 +13,7 @@ const HomeScreen = ({navigation}) => {
     
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Build your dream Home Office</Text>
-      <Image 
-        style={styles.image} 
-        source={require('../assets/homeofficehero.jpg')} 
-      />
+      <HomeBanner style={styles.homebanner} />
 
       <Text style={styles.subtitle}>Featured Products</Text>
 
@@ -41,9 +38,10 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    width: '100vw',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 20,
   },
   title: {
     fontSize: 24,
@@ -57,15 +55,16 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 10,
   },
-  image: {
-    width: 500,
-    height: 200,
-  },
   productGrid: {
     flex: 1,
     width: '100%',
     alignContent: 'center',
-  }
+  },
+  homebanner: {
+    width: 'max-content',
+    height: 200,
+    borderRadius: 10,
+  },
 });
 
 export default HomeScreen;
