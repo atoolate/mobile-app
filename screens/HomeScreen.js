@@ -22,7 +22,7 @@ const HomeScreen = ({ navigation }) => {
             style={styles.productCard} 
             onPress={() => navigation.navigate('Details', {
               productImage: hermanMillerImage,
-              title: 'Herman Miller Chair',
+              title: 'Herman Miller Chair!',
               price: '$1200',
               description: 'The Herman Miller Aeron Chair is the most comfortable office chair you can buy. It prevents back pain and improves posture.'
             })}
