@@ -3,32 +3,67 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-nati
 import ProductCard from '../components/ProductCard';
 import HomeBanner from '../components/HomeBanner';
 
+import hermanMillerImage from '../assets/hermanmiller.jpg';
+import keyboardImage from '../assets/keyboard.jpg';
+import standingDeskImage from '../assets/standingdesk.jpg';
+
 const HomeScreen = ({ navigation }) => {
-
-  const handleProductPress = () => {
-    console.log('Product Pressed');
-    navigation.navigate('Details');
-  };
-
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
         <HomeBanner style={styles.homebanner} />
         <Text style={styles.subtitle}>Featured Products</Text>
-        <View style={styles.productGrid}>
-          <TouchableOpacity style={styles.productCard} onPress={handleProductPress}>
-            <ProductCard />
+        <ScrollView 
+          contentContainerStyle={styles.productGrid}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        >
+          <TouchableOpacity 
+            style={styles.productCard} 
+            onPress={() => navigation.navigate('Details', {
+              productImage: hermanMillerImage,
+              title: 'Herman Miller Chair',
+              price: '$1200',
+              description: 'The Herman Miller Aeron Chair is the most comfortable office chair you can buy. It prevents back pain and improves posture.'
+            })}
+          >
+            <ProductCard 
+              title='Herman Miller Chair'
+              price='$1200'
+              productImage={hermanMillerImage}
+            />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.productCard} onPress={handleProductPress}>
-            <ProductCard />
+          <TouchableOpacity 
+            style={styles.productCard} 
+            onPress={() => navigation.navigate('Details', {
+              productImage: keyboardImage,
+              title: 'Mechanical Keyboard',
+              price: '$150',
+              description: 'The Keycron K6 is a compact 65% keyboard with hot-swappable switches. It is perfect for gaming and typing.'
+            })}
+          >
+            <ProductCard 
+              title='Mechanical Keyboard'
+              price='$150'
+              productImage={keyboardImage}
+            />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.productCard} onPress={handleProductPress}>
-            <ProductCard />
+          <TouchableOpacity 
+            style={styles.productCard}
+            onPress={() => navigation.navigate('Details', {
+              productImage: standingDeskImage,
+              title: 'Standing Desk',
+              price: '$300',
+              description: 'The Flexispot Standing Desk is a height-adjustable desk that allows you to work while standing. It improves productivity and health.'
+            })}
+          >
+            <ProductCard 
+              title='Standing Desk'
+              price='$300'
+              productImage={standingDeskImage}
+            />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.productCard} onPress={handleProductPress}>
-            <ProductCard />
-          </TouchableOpacity>
-        </View>
+        </ScrollView>
       </View>
     </ScrollView>
   );
@@ -38,6 +73,7 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     alignItems: 'center',
     justifyContent: 'center',
+    height: '100%',
   },
   container: {
     backgroundColor: '#fff',
@@ -46,6 +82,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingLeft: 10,
     paddingRight: 10,
+    height: '100%',
   },
   homebanner: {
     width: '100%',
@@ -59,17 +96,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   productGrid: {
-    width: '100%',
-    // i need 2 columns on each row
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 10,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    marginBottom: 20,
+    justifyContent: 'center',
+    height: '100%',
+    marginLeft: 5,
   },
   productCard: {
-    width: '45%',
+    width: 250,
+    marginRight: 20,
   }
 });
 

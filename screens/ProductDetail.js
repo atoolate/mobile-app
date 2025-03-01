@@ -1,16 +1,18 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, Button, TouchableOpacity } from 'react-native';
 
-const ProductDetail = (navigation) => {
+const ProductDetail = ({ route }) => {
+    const { productImage, title, price, description } = route.params;
+
     return (
         <View style={styles.container}>
             <Image
                 style={styles.image}
-                source={require('../assets/hermanmiller.jpg')}
+                source={productImage}
             />
-            <Text style={styles.productTitle}>Herman Miller Chair</Text>
-            <Text>$1,200.00</Text>
-            <Text style={styles.description}>This is a very comfortable chair. It is perfect for your home office.</Text>
+            <Text style={styles.productTitle}>{title}</Text>
+            <Text>{price}</Text>
+            <Text style={styles.description}>{description}</Text>
             <TouchableOpacity                 
                 onPress={() => console.log('Add to Cart Pressed')}
             >
@@ -30,6 +32,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '100%',
+        sizeMode: 'cover',
         height: 300,        
         
     },

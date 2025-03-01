@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
-const ProductCard = () => {
+const ProductCard = ({productImage, title, price}) => {
     return (
         <View style={styles.card}>
             <Image
                 style={styles.image}
-                source={require('../assets/hermanmiller.jpg')}
+                source={productImage}
             />
-            <Text style={styles.productTitle}>Herman Miller Chair</Text>
-            <Text style={styles.productPrice}>$1,200.00</Text>
+            <Text style={styles.productTitle}>{title}</Text>
+            <Text style={styles.productPrice}>{price}</Text>
 
         </View>
     );
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     image: {
         // fit the card and make it contain
         width: '100%',
-        height: 200,
+        height: 300,
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,        
         
