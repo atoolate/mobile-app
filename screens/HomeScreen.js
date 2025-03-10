@@ -1,18 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import ProductCard from '../components/ProductCard';
 import HomeBanner from '../components/HomeBanner';
-
+import { API_URL, BEARER_TOKEN } from 'react-native-dotenv';
 
 const HomeScreen = ({ navigation }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch('https://api.webflow.com/v2/sites/67ac9affa35b531aef6db98b/products/', 
+    fetch(API_URL, 
       {
         headers: {
-          Authorization: 
-          "Bearer cc22c421d60b0d6f8ebe6f2344823dac0542ef47836c089eddf56f41d8f6a062",
+          Authorization: `Bearer ${BEARER_TOKEN}`,
       },
       } 
     )
