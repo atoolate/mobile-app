@@ -1,13 +1,34 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import ProductCard from '../components/ProductCard';
 import HomeBanner from '../components/HomeBanner';
 
-import hermanMillerImage from '../assets/hermanmiller.jpg';
-import keyboardImage from '../assets/keyboard.jpg';
-import standingDeskImage from '../assets/standingdesk.jpg';
 
 const HomeScreen = ({ navigation }) => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch('https://api.webflow.com/v2/sites/67ac9affa35b531aef6db98b/products/', 
+      {
+        headers: {
+          Authorization: 
+          "Bearer cc22c421d60b0d6f8ebe6f2344823dac0542ef47836c089eddf56f41d8f6a062",
+      },
+      } 
+    )
+      .then(response => response.json())
+      .then(data => setProducts(
+        data.items.map(item => ({
+          id: item.product.id,
+          title: item.product.fieldData.name,
+          subtitle: item.product.fieldData.description,
+          price: (item.skus[0]?.fieldData.price.value || 0) / 100,
+          image: {uri: item.skus[0]?.fieldData["main-image"]?.url},
+        }))
+      ))
+      .catch(error => console.error(error));
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
@@ -18,51 +39,24 @@ const HomeScreen = ({ navigation }) => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
-          <TouchableOpacity 
-            style={styles.productCard} 
-            onPress={() => navigation.navigate('Details', {
-              productImage: hermanMillerImage,
-              title: 'Herman Miller Chair',
-              price: 1200,
-              description: 'The Herman Miller Aeron Chair is the most comfortable office chair you can buy. It prevents back pain and improves posture.'
-            })}
-          >
-            <ProductCard 
-              title='Herman Miller Chair'
-              price={1200}
-              productImage={hermanMillerImage}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity 
-            style={styles.productCard} 
-            onPress={() => navigation.navigate('Details', {
-              productImage: keyboardImage,
-              title: 'Mechanical Keyboard',
-              price: 150,
-              description: 'The Keycron K6 is a compact 65% keyboard with hot-swappable switches. It is perfect for gaming and typing.'
-            })}
-          >
-            <ProductCard 
-              title='Mechanical Keyboard'
-              price={150}
-              productImage={keyboardImage}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity 
-            style={styles.productCard}
-            onPress={() => navigation.navigate('Details', {
-              productImage: standingDeskImage,
-              title: 'Standing Desk',
-              price: 300,
-              description: 'The Flexispot Standing Desk is a height-adjustable desk that allows you to work while standing. It improves productivity and health.'
-            })}
-          >
-            <ProductCard 
-              title='Standing Desk'
-              price={300}
-              productImage={standingDeskImage}
-            />
-          </TouchableOpacity>
+          {products.map(product => (
+            <TouchableOpacity 
+              key={product.id}
+              style={styles.productCard} 
+              onPress={() => navigation.navigate('Details', {
+                productImage: product.image,
+                title: product.title,
+                price: product.price,
+                description: product.subtitle
+              })}
+            >
+              <ProductCard 
+                title={product.title}
+                price={product.price}
+                productImage={product.image}
+              />
+            </TouchableOpacity>
+          ))}
         </ScrollView>
       </View>
     </ScrollView>
