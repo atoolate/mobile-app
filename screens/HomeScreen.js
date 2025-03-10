@@ -22,14 +22,14 @@ const HomeScreen = ({ navigation }) => {
             style={styles.productCard} 
             onPress={() => navigation.navigate('Details', {
               productImage: hermanMillerImage,
-              title: 'Herman Miller Chair!',
-              price: '$1200',
+              title: 'Herman Miller Chair',
+              price: 1200,
               description: 'The Herman Miller Aeron Chair is the most comfortable office chair you can buy. It prevents back pain and improves posture.'
             })}
           >
             <ProductCard 
               title='Herman Miller Chair'
-              price='$1200'
+              price={1200}
               productImage={hermanMillerImage}
             />
           </TouchableOpacity>
@@ -38,13 +38,13 @@ const HomeScreen = ({ navigation }) => {
             onPress={() => navigation.navigate('Details', {
               productImage: keyboardImage,
               title: 'Mechanical Keyboard',
-              price: '$150',
+              price: 150,
               description: 'The Keycron K6 is a compact 65% keyboard with hot-swappable switches. It is perfect for gaming and typing.'
             })}
           >
             <ProductCard 
               title='Mechanical Keyboard'
-              price='$150'
+              price={150}
               productImage={keyboardImage}
             />
           </TouchableOpacity>
@@ -53,13 +53,13 @@ const HomeScreen = ({ navigation }) => {
             onPress={() => navigation.navigate('Details', {
               productImage: standingDeskImage,
               title: 'Standing Desk',
-              price: '$300',
+              price: 300,
               description: 'The Flexispot Standing Desk is a height-adjustable desk that allows you to work while standing. It improves productivity and health.'
             })}
           >
             <ProductCard 
               title='Standing Desk'
-              price='$300'
+              price={300}
               productImage={standingDeskImage}
             />
           </TouchableOpacity>
@@ -77,8 +77,6 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
     width: '100%',
     paddingLeft: 10,
     paddingRight: 10,

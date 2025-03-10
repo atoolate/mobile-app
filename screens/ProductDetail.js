@@ -4,21 +4,18 @@ import { View, Text, Image, StyleSheet, Button, TouchableOpacity } from 'react-n
 const ProductDetail = ({ route }) => {
     const { productImage, title, price, description } = route.params;
     const [quantity, setQuantity] = useState(1);
-    
-    // Ensure the price is a number (remove $ sign if present)
-    const unitPrice = parseFloat(price.replace(/[^0-9.]/g, ''));
-    const [totalPrice, setTotalPrice] = useState(unitPrice);
+    const [totalPrice, setTotalPrice] = useState(price);
 
     const handleDecrease = () => {
         if (quantity > 1) {
             setQuantity(quantity - 1);
-            setTotalPrice(unitPrice * (quantity - 1));
+            setTotalPrice(price * (quantity - 1));
         }
     };
 
     const handleIncrease = () => {
         setQuantity(quantity + 1);
-        setTotalPrice(unitPrice * (quantity + 1));
+        setTotalPrice(price * (quantity + 1));
     };
 
     return (
