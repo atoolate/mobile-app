@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import ProductCard from '../components/ProductCard';
 import HomeBanner from '../components/HomeBanner';
 import { API_URL, BEARER_TOKEN } from 'react-native-dotenv';
@@ -10,13 +10,14 @@ const categoryNames = {
   "67c5e911ad7bc8bcd0984527": "Monitors",
   "67c5e84532d25aad14815318": "Desks",
   "67c5e835338983ed22cfa9fe": "Keyboards",
-  "67c5e8263f065ae8614f3a21": "Chair"
+  "67c5e8263f065ae8614f3a21": "Chairs"
 }
 
 
 const HomeScreen = ({ navigation }) => {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetch(API_URL, 
@@ -41,15 +42,22 @@ const HomeScreen = ({ navigation }) => {
       .catch(error => console.error(error));
   }, []);
 
-  const filteredProducts = selectedCategory
-    ? products.filter(p => p.category === selectedCategory)
-    : products;
+  const filteredProducts = products.filter(product =>
+    product.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+    (selectedCategory === "" || product.category === selectedCategory)
+  );
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
         <HomeBanner style={styles.homebanner} />
-        <Text style={styles.subtitle}>Featured Products</Text>
+
+        <TextInput style={styles.searchbar} 
+          placeholder="Find your product"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+
         <Picker
           selectedValue={selectedCategory}
           onValueChange={setSelectedCategory}
