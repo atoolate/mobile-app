@@ -18,6 +18,7 @@ const HomeScreen = ({ navigation }) => {
   const [products, setProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortOption, setSortOption] = useState("price-asc");
 
   useEffect(() => {
     fetch(API_URL, 
@@ -47,6 +48,14 @@ const HomeScreen = ({ navigation }) => {
     (selectedCategory === "" || product.category === selectedCategory)
   );
 
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    if (sortOption === "price-asc") { return a.price - b.price; }
+    if (sortOption === "price-desc") { return b.price - a.price; }
+    if (sortOption === "name-asc") { return a.title.localeCompare(b.title); }
+    if (sortOption === "name-desc") { return b.title.localeCompare(a.title); }
+  }
+  );
+
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
@@ -58,22 +67,38 @@ const HomeScreen = ({ navigation }) => {
           onChangeText={setSearchQuery}
         />
 
-        <Picker
-          selectedValue={selectedCategory}
-          onValueChange={setSelectedCategory}
-          style={styles.picker} 
-        >
-          <Picker.Item label="All" value="" />
-          {[...new Set(products.map(p => p.category))].map(category => (
-            <Picker.Item key={category} label={category} value={category} />
-          ))}
-        </Picker>
+        <View style={styles.filterbox}>
+          {/* Picker for categories */}
+          <Picker
+            selectedValue={selectedCategory}
+            onValueChange={setSelectedCategory}
+            style={styles.picker} 
+          >
+            <Picker.Item label="All" value="" />
+            {[...new Set(products.map(p => p.category))].map(category => (
+              <Picker.Item key={category} label={category} value={category} />
+            ))}
+          </Picker>
+
+          {/* Picker for sorting */}
+          <Picker
+            selectedValue={sortOption}
+            onValueChange={setSortOption}
+            style={styles.picker}
+          >
+            <Picker.Item label="Price: Low to High" value="price-asc" />
+            <Picker.Item label="Price: High to Low" value="price-desc" />
+            <Picker.Item label="Name: A to Z" value="name-asc" />
+            <Picker.Item label="Name: Z to A" value="name-desc" />
+          </Picker>
+        </View>
+        
         <ScrollView 
           contentContainerStyle={styles.productGrid}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
-          {filteredProducts.map(product => (
+          {sortedProducts.map(product => (
             <TouchableOpacity 
               key={product.id}
               style={styles.productCard} 
@@ -130,7 +155,28 @@ const styles = StyleSheet.create({
   productCard: {
     width: 250,
     marginRight: 20,
-  }
+  },
+  filterbox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  picker: {
+    height: 50,
+    width: '50%',
+    backgroundColor: '#fff',
+  },
+  searchbar: {
+    height: 40,
+    borderColor: 'gray',
+    marginLeft: 15,
+    marginRight: 15,
+    borderWidth: 1,
+    width: '100%',
+    alignSelf: 'center',
+    borderRadius: 10,
+    paddingLeft: 10,
+  },
 });
 
 export default HomeScreen;
