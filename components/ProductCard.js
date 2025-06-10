@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
-const ProductCard = ({ productImage, title, price }) => {
+const ProductCard = ({ productImage, title, price, style = {} }) => {
     return (
         <View style={styles.card}>
             <Image
                 style={styles.image}
                 source={productImage}
             />
-            <Text style={styles.productTitle}>{title}</Text>
+            <Text style={[styles.productTitle, style.productTitle]}>{title}</Text>
             <Text style={styles.productPrice}>${price}</Text>
         </View>
     );
@@ -35,10 +35,12 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 10,        
     },
     productTitle: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: 'bold',
         marginTop: 10,
         paddingLeft: 10,
+        height: 60,
+        overflow: 'auto',
     },
     productPrice: {
         fontSize: 16,

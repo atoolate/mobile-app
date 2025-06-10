@@ -38,8 +38,9 @@ const styles = StyleSheet.create({
         gap: 10,
     },
     bannerText: {
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        backgroundColor: 'rgba(0, 0, 0, 0.47)',
         padding: 20,
+        width: '90%',
         borderRadius: 10,
         gap: 5,
     },
