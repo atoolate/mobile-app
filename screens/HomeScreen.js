@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import ProductCard from '../components/ProductCard';
 import HomeBanner from '../components/HomeBanner';
-import { API_URL, BEARER_TOKEN } from 'react-native-dotenv';
+import { API_URL, BEARER_TOKEN } from '@env';
 import { Picker } from '@react-native-picker/picker';
+
 
 const categoryNames = {
   "" : "All",
