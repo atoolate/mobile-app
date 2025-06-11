@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   headerLogo: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: 'Inconsolata_700Bold',
     color: '#333',
   },
   headerWishlist: {

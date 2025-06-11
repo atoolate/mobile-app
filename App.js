@@ -8,6 +8,8 @@ import BlogsScreen from './screens/BlogsScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import WishlistScreen from './screens/WishlistScreen';
 import CustomHeader from './components/CustomHeader';
+import { useFonts, Inconsolata_400Regular, Inconsolata_700Bold } from '@expo-google-fonts/inconsolata';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -54,6 +56,13 @@ const BlogsStack = () => (
 
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    Inconsolata_400Regular,
+    Inconsolata_700Bold,
+  });
+  if (!fontsLoaded) {
+    return null; // or a loading indicator
+  }
   return (
     <NavigationContainer>
       <Tab.Navigator>

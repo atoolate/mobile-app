@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     },
     productTitle: {
         fontSize: 16,
-        fontWeight: 'bold',
+        fontFamily: 'Inconsolata_700Bold',
         marginTop: 10,
         paddingLeft: 10,
         height: 60,
