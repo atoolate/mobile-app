@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import CustomHeader from '../components/CustomHeader';
-import { BEARER_TOKEN } from '@env';
+import { BLOGS_API_URL, BEARER_TOKEN } from '@env';
 
-const BLOGS_API_URL = 'https://api.webflow.com/v2/sites/67ac9affa35b531aef6db98b/collections/67b74d23c5bbcd305c0ff100/items';
 
 const formatDate = (iso) => {
   if (!iso) return '';
@@ -20,7 +19,7 @@ const BlogsScreen = ({ navigation }) => {
     fetch(BLOGS_API_URL, {
       headers: {
         Authorization: `Bearer ${BEARER_TOKEN}`,
-        'accept-version': '2.0.0'
+        'Content-Type': 'application/json',
       }
     })
       .then(res => res.json())
@@ -59,7 +58,11 @@ const BlogsScreen = ({ navigation }) => {
             let imageUrl = field["cover-image"]?.url;
 
             return (
-              <TouchableOpacity key={blog.id} style={styles.blogRow}>
+              <TouchableOpacity
+                key={blog.id}
+                style={styles.blogRow}
+                onPress={() => navigation.navigate('Details', { blog })}
+              >
                 {imageUrl ? (
                   <Image
                     source={{ uri: imageUrl }}
@@ -74,7 +77,6 @@ const BlogsScreen = ({ navigation }) => {
                 <View style={styles.blogTextCol}>
                   <Text style={styles.blogTitle}>{field.name}</Text>
                   <Text style={styles.blogDate}>{formatDate(field['publication-date'])}</Text>
-                  <Text style={styles.blogIntro}>{field.intro || 'No summary available.'}</Text>
                 </View>
               </TouchableOpacity>
             );
@@ -91,18 +93,20 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   container: {
-    backgroundColor: '#fff',
     width: '100%',
-    paddingLeft: 10,
-    paddingRight: 10,
-    minHeight: '100%',
+    fontFamily: 'VarelaRound_400Regular',
+    
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 20,
-    marginBottom: 10,
-    textAlign: 'center',
+    fontSize: 28,
+    fontFamily: 'Inconsolata_700Bold',
+    marginBottom: 20,
+    paddingBottom: 5,
+    paddingLeft: 15,
+    marginTop: 15,
+    borderBottomColor: '#1a1a1a',
+    borderBottomWidth: 1,
+
   },
   loading: {
     marginTop: 40,
@@ -121,21 +125,18 @@ const styles = StyleSheet.create({
   },
   blogRow: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    backgroundColor: '#f8f8f8',
-    borderRadius: 10,
-    padding: 15,
+    alignItems: 'center',
     marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 15,
+    borderBottomColor: '#1a1a1a',
+    borderBottomWidth: 1,
   },
   blogImageRow: {
     width: 100,
-    height: 100,
-    borderRadius: 10,
+    height: '100%',
+    aspectRatio: 1,
     marginRight: 15,
     resizeMode: 'cover',
   },
@@ -159,13 +160,14 @@ const styles = StyleSheet.create({
   },
   blogTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'Inconsolata_700Bold',
     marginBottom: 3,
   },
   blogDate: {
     fontSize: 14,
     color: '#888',
     marginBottom: 6,
+    fontFamily: 'VarelaRound_400Regular',
   },
   blogIntro: {
     fontSize: 16,

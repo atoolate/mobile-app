@@ -51,6 +51,7 @@ const HomeScreen = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.container}>
           <HomeBanner style={styles.homebanner} />
+          <Text style={styles.subtitle}>Featured Products</Text>
           <ScrollView 
             contentContainerStyle={styles.productGrid}
             horizontal={true}
@@ -79,7 +80,7 @@ const HomeScreen = ({ navigation }) => {
               style={styles.viewMoreButton} 
               onPress={() => navigation.navigate('Products')}
             >
-              <Text style={styles.viewMoreText}>View More</Text>
+              <Text style={styles.viewMoreText}>View More +++ </Text>
             </TouchableOpacity>
           </ScrollView>
         </View>
@@ -98,8 +99,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     width: '100%',
-    paddingLeft: 10,
-    paddingRight: 10,
     height: '100%',
   },
   homebanner: {
@@ -107,17 +106,19 @@ const styles = StyleSheet.create({
     height: 200,
   },
   subtitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginTop: 20,
+    fontSize: 24,
+    fontFamily: 'Inconsolata_700Bold',
     marginBottom: 10,
-    textAlign: 'center',
+    textAlign: 'left',
+    paddingLeft: 20,
+    color: '#1a1a1a',
   },
   productGrid: {
     flexDirection: 'row',
     justifyContent: 'center',
     height: '100%',
-    marginLeft: 5,
+    marginLeft: 20,
+    
   },
   productCard: {
     width: 250,

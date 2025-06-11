@@ -52,7 +52,7 @@ const WishlistScreen = () => {
                 style={styles.wishlistIcon}
                 onPress={() => removeFromWishlist(product.id)}
               >
-                <AntDesign name="delete" size={24} color="red" />
+                <AntDesign name="delete" size={24} color="#e74c3c" />
               </TouchableOpacity>
             </View>
           ))

@@ -125,7 +125,7 @@ const ProductsScreen = ({ navigation }) => {
                             <AntDesign
                               name={wishlist.some(item => item.id === product.id) ? 'heart' : 'hearto'}
                               size={28}
-                              color={wishlist.some(item => item.id === product.id) ? 'red' : 'gray'}
+                              color={wishlist.some(item => item.id === product.id) ? '#e74c3c' : 'white'}
                             />
                           </TouchableOpacity>
                         </View>
@@ -163,11 +163,9 @@ const styles = StyleSheet.create({
   productRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 10,
   },
   productCard: {
     width: '48%',
-    margin: 5,
   },
   picker: {
     height: 50,
@@ -176,13 +174,12 @@ const styles = StyleSheet.create({
   },
   searchbar: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: '#1a1a1a',
     marginLeft: 15,
     marginRight: 15,
     borderWidth: 1,
     width: '100%',
     alignSelf: 'center',
-    borderRadius: 10,
     paddingLeft: 10,
     marginBottom: 10,
     marginTop: 10,

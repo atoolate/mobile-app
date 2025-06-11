@@ -8,7 +8,6 @@ const HomeBanner = () => {
                 source={require('../assets/homeofficehero.jpg')}
                 resizeMode='cover'
                 style={styles.image}
-                imageStyle={{ borderRadius: 10 }}
             >
                 <View style={styles.bannerText}>
                     <Text style={styles.heading}>Welcome to Deskly</Text>
@@ -24,9 +23,7 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         height: 200,
-        borderRadius: 10,
         overflow: 'hidden',
-        marginTop: 20,
         marginBottom: 20,
     },
     image: {
@@ -35,7 +32,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingTop: 20,
         alignItems: 'center',
-        gap: 10,
     },
     bannerText: {
         backgroundColor: 'rgba(0, 0, 0, 0.47)',
@@ -43,11 +39,12 @@ const styles = StyleSheet.create({
         width: '90%',
         borderRadius: 10,
         gap: 5,
+        fontFamily: 'VarelaRound_400Regular',
     },
     heading: {
         color: 'white',
         fontSize: 24,
-        fontWeight: 'bold',
+        fontFamily: 'Inconsolata_700Bold',
         textAlign: 'center',
     },
     subheading: {
