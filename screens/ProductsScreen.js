@@ -105,7 +105,7 @@ const ProductsScreen = ({ navigation }) => {
                       product && (
                         <View key={product.id} style={styles.productCard}>
                           <TouchableOpacity
-                            onPress={() => navigation.navigate('Details', {
+                            onPress={() => navigation.navigate('Product Detail', {
                               productImage: product.image,
                               title: product.title,
                               price: product.price,

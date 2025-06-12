@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import CustomHeader from '../components/CustomHeader';
+import BlogRow from '../components/BlogRow';
 import { BLOGS_API_URL, BEARER_TOKEN } from '@env';
 
 
@@ -53,34 +54,13 @@ const BlogsScreen = ({ navigation }) => {
             <Text style={styles.subtitle}>No blog posts found.</Text>
           )}
 
-          {!loading && !error && blogs.map(blog => {
-            const field = blog.fieldData;
-            let imageUrl = field["cover-image"]?.url;
-
-            return (
-              <TouchableOpacity
-                key={blog.id}
-                style={styles.blogRow}
-                onPress={() => navigation.navigate('Details', { blog })}
-              >
-                {imageUrl ? (
-                  <Image
-                    source={{ uri: imageUrl }}
-                    style={styles.blogImageRow}
-                    onError={() => console.log('Image failed to load:', imageUrl)}
-                  />
-                ) : (
-                  <View style={styles.placeholderImage}>
-                    <Text style={styles.placeholderText}>No Image</Text>
-                  </View>
-                )}
-                <View style={styles.blogTextCol}>
-                  <Text style={styles.blogTitle}>{field.name}</Text>
-                  <Text style={styles.blogDate}>{formatDate(field['publication-date'])}</Text>
-                </View>
-              </TouchableOpacity>
-            );
-          })}
+          {!loading && !error && blogs.map(blog => (
+            <BlogRow
+              key={blog.id}
+              blog={blog}
+              onPress={() => navigation.navigate('Blog Detail', { blog })}
+            />
+          ))}
         </View>
       </ScrollView>
     </View>
@@ -122,56 +102,6 @@ const styles = StyleSheet.create({
     color: 'gray',
     textAlign: 'center',
     marginTop: 40,
-  },
-  blogRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingBottom: 15,
-    borderBottomColor: '#1a1a1a',
-    borderBottomWidth: 1,
-  },
-  blogImageRow: {
-    width: 100,
-    height: '100%',
-    aspectRatio: 1,
-    marginRight: 15,
-    resizeMode: 'cover',
-  },
-  placeholderImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 10,
-    marginRight: 15,
-    backgroundColor: '#eee',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  placeholderText: {
-    color: '#aaa',
-    fontSize: 12,
-  },
-  blogTextCol: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-  },
-  blogTitle: {
-    fontSize: 20,
-    fontFamily: 'Inconsolata_700Bold',
-    marginBottom: 3,
-  },
-  blogDate: {
-    fontSize: 14,
-    color: '#888',
-    marginBottom: 6,
-    fontFamily: 'VarelaRound_400Regular',
-  },
-  blogIntro: {
-    fontSize: 16,
-    color: '#333',
   },
 });
 

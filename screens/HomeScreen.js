@@ -3,7 +3,9 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-nati
 import ProductCard from '../components/ProductCard';
 import HomeBanner from '../components/HomeBanner';
 import CustomHeader from '../components/CustomHeader';
+import BlogRow from '../components/BlogRow';
 import { API_URL, BEARER_TOKEN } from '@env';
+import { BLOGS_API_URL } from '@env';
 import { AntDesign } from '@expo/vector-icons';
 
 
@@ -18,15 +20,12 @@ const categoryNames = {
 
 const HomeScreen = ({ navigation }) => {
   const [products, setProducts] = useState([]);
+  const [latestBlog, setLatestBlog] = useState(null);
 
   useEffect(() => {
-    fetch(API_URL, 
-      {
-        headers: {
-          Authorization: `Bearer ${BEARER_TOKEN}`,
-      },
-      } 
-    )
+    fetch(API_URL, {
+      headers: { Authorization: `Bearer ${BEARER_TOKEN}` },
+    })
       .then(response => response.json())
       .then(data => setProducts(
         data.items.map(item => ({
@@ -40,6 +39,27 @@ const HomeScreen = ({ navigation }) => {
         }))
       ))
       .catch(error => console.error(error));
+
+    // Fetch latest blog
+    fetch(BLOGS_API_URL, {
+      headers: {
+        Authorization: `Bearer ${BEARER_TOKEN}`,
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.items && Array.isArray(data.items) && data.items.length > 0) {
+          // Sort by publication date descending
+          const sorted = [...data.items].sort((a, b) => {
+            const dateA = new Date(a.fieldData['publication-date'] || a.createdOn);
+            const dateB = new Date(b.fieldData['publication-date'] || b.createdOn);
+            return dateB - dateA;
+          });
+          setLatestBlog(sorted[0]);
+        }
+      })
+      .catch(error => console.error('Failed to fetch latest blog:', error));
   }, []);
 
   // Only show the first 2 products
@@ -61,7 +81,7 @@ const HomeScreen = ({ navigation }) => {
               <TouchableOpacity 
                 key={product.id}
                 style={styles.productCard} 
-                onPress={() => navigation.navigate('Details', {
+                onPress={() => navigation.navigate('Product Detail', {
                   productImage: product.image,
                   title: product.title,
                   price: product.price,
@@ -83,7 +103,21 @@ const HomeScreen = ({ navigation }) => {
               <Text style={styles.viewMoreText}>View More +++ </Text>
             </TouchableOpacity>
           </ScrollView>
+          <Text style={styles.subtitle}>Latest Blog</Text>
+          {latestBlog && (
+            <BlogRow
+              blog={latestBlog}
+              onPress={() => navigation.navigate('Blog Detail', { blog: latestBlog })}
+              style={{ 
+                borderBottomWidth: 0, 
+                borderBottomColor: 'transparent',
+                paddingLeft: 20,
+                
+              }}
+            />
+          )}
         </View>
+      
       </ScrollView>
     </View>
   );
@@ -94,12 +128,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
-    height: '100%',
   },
   container: {
     backgroundColor: '#fff',
     width: '100%',
-    height: '100%',
   },
   homebanner: {
     width: '100%',
@@ -137,6 +169,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textDecorationLine: 'underline',
   },
+  
 });
 
 export default HomeScreen;

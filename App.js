@@ -25,7 +25,8 @@ function HomeStack() {
         component={HomeScreen} 
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Details" component={ProductDetail} />
+      <Stack.Screen name="Product Detail" component={ProductDetail} />
+      <Stack.Screen name="Blog Detail" component={BlogDetail} />
       <Stack.Screen name="Wishlist" component={WishlistScreen} />
     </Stack.Navigator>
   );
@@ -39,7 +40,7 @@ function ProductsStack() {
         component={ProductsScreen} 
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Details" component={ProductDetail} />
+      <Stack.Screen name="Product Detail" component={ProductDetail} />
       <Stack.Screen name="Wishlist" component={WishlistScreen} />
     </Stack.Navigator>
   );
@@ -52,7 +53,7 @@ const BlogsStack = () => (
       component={BlogsScreen} 
       options={{ headerShown: false }} 
     />
-    <Stack.Screen name="Details" component={BlogDetail} />
+    <Stack.Screen name="Blog Detail" component={BlogDetail} />
     <Stack.Screen name="Wishlist" component={WishlistScreen} />
   </Stack.Navigator>
 );
