@@ -98,19 +98,20 @@ const formatProductsForPrompt = (products) => {
   };
 
   return (
-    <View style={styles.outerContainer}>
-      <CustomHeader title="Chatbot" navigation={navigation} />
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS}
-        keyboardVerticalOffset={80}
-      >
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
+    >
+      <View style={styles.outerContainer}>
+        <CustomHeader title="Chatbot" navigation={navigation} />
         <View style={styles.container}>
           <ScrollView
             style={styles.chatBox}
             contentContainerStyle={{ paddingVertical: 10 }}
             ref={scrollViewRef}
             onContentSizeChange={() => scrollViewRef.current?.scrollToEnd({ animated: true })}
+            keyboardShouldPersistTaps="handled"
           >
             {messages
               .filter(msg => msg.role !== 'system')
@@ -147,8 +148,8 @@ const formatProductsForPrompt = (products) => {
             </TouchableOpacity>
           </View>
         </View>
-      </KeyboardAvoidingView>
-    </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
