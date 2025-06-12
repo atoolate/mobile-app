@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AntDesign } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 
-const WishlistScreen = () => {
+const WishlistScreen = ({navigation}) => {
   const [wishlist, setWishlist] = useState([]);
 
   useEffect(() => {
@@ -41,7 +41,16 @@ const WishlistScreen = () => {
           <Text style={styles.empty}>Your wishlist is empty.</Text>
         ) : (
           wishlist.map(product => (
-            <View key={product.id} style={styles.productCard}>
+            <TouchableOpacity 
+              key={product.id} 
+              style={styles.productCard}
+              onPress={() => navigation.navigate('Product Detail', {
+                  productImage: product.image,
+                  title: product.title,
+                  price: product.price,
+                  description: product.subtitle,
+              })}
+            >
               <ProductCard
                 title={product.title} 
                 price={product.price}
@@ -54,7 +63,7 @@ const WishlistScreen = () => {
               >
                 <AntDesign name="delete" size={24} color="#e74c3c" />
               </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
           ))
         )}
       </View>

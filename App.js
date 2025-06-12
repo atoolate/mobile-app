@@ -5,13 +5,13 @@ import HomeScreen from './screens/HomeScreen';
 import ProductDetail from './screens/ProductDetail';
 import ProductsScreen from './screens/ProductsScreen';
 import BlogsScreen from './screens/BlogsScreen';
-import ProfileScreen from './screens/ProfileScreen';
 import WishlistScreen from './screens/WishlistScreen';
 import BlogDetail from './screens/BlogDetail';
 import CustomHeader from './components/CustomHeader';
 import { useFonts, Inconsolata_400Regular, Inconsolata_700Bold } from '@expo-google-fonts/inconsolata';
 import { VarelaRound_400Regular } from '@expo-google-fonts/varela-round/400Regular';
 import { AntDesign, MaterialIcons, Feather } from '@expo/vector-icons';
+import ChatbotScreen from './screens/ChatbotScreen';
 
 
 const Stack = createStackNavigator();
@@ -55,9 +55,21 @@ const BlogsStack = () => (
     />
     <Stack.Screen name="Blog Detail" component={BlogDetail} />
     <Stack.Screen name="Wishlist" component={WishlistScreen} />
+    <Stack.Screen name="Product Detail" component={ProductDetail} />
   </Stack.Navigator>
 );
 
+const ChatbotStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen 
+      name="Chatbot" 
+      component={ChatbotScreen} 
+      options={{ headerShown: false }} 
+    />
+    <Stack.Screen name="Wishlist" component={WishlistScreen} />
+    <Stack.Screen name="Product Detail" component={ProductDetail} />
+  </Stack.Navigator>
+);
 
 
 export default function App() {
@@ -84,8 +96,8 @@ export default function App() {
             if (route.name === 'Blogs') {
               return <MaterialIcons name="article" size={iconSize} color={color} />;
             }
-            if (route.name === 'Profile') {
-              return <AntDesign name="user" size={iconSize} color={color} />;
+            if (route.name === 'Chatbot') {
+                return <AntDesign name="wechat" size={iconSize} color={color} />;
             }
             return null;
           },
@@ -112,19 +124,18 @@ export default function App() {
         <Tab.Screen 
           name="Home" 
           component={HomeStack} 
-          options={{ headerShown: false }} 
         />
         <Tab.Screen 
           name="Products" 
           component={ProductsStack} 
-          options={{ headerShown: false }}
         />
         <Tab.Screen 
           name="Blogs" 
           component={BlogsStack} 
-          options={{ headerShown: false }}
         />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen
+          name="Chatbot" 
+          component={ChatbotStack} />
       </Tab.Navigator>
     </NavigationContainer>
   );

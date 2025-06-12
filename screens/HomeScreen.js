@@ -100,7 +100,7 @@ const HomeScreen = ({ navigation }) => {
               style={styles.viewMoreButton} 
               onPress={() => navigation.navigate('Products')}
             >
-              <Text style={styles.viewMoreText}>View More +++ </Text>
+              <Text style={styles.viewMoreText}>View More &gt; </Text>
             </TouchableOpacity>
           </ScrollView>
           <Text style={styles.subtitle}>Latest Blog</Text>
